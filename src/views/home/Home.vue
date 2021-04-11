@@ -1,13 +1,14 @@
 <template>
 	<div id="home">
 		<Nabbar class='home-nabbar'><div slot='center'>购物街</div></Nabbar>
-		<Scroll class="content" ref="scroll">
+		<Scroll class="wrapper" ref="scroll" :probeType='3' @scroll="contentScroll">
 			<HomeSwiper :banners = "banners"></HomeSwiper>
 			<RecommendView :recommends = "recommends"></RecommendView>
 			<FeatureView></FeatureView>
 			<TabControl class='tabControl' :titles=titles @tabclick="tabclick"></TabControl>
 			<GoodsList :goods="currentGoods"></GoodsList>
 		</Scroll>
+		<BackTop @click.native='backClick' v-show="isShowBackTop"></BackTop>
 	</div>
 </template>
 
@@ -19,10 +20,11 @@
 	import FeatureView from './childComps/FeatureView.vue'
 	import TabControl from '../../components/content/tabControl/TabControl.vue'
 	import GoodsList from '../../components/content/goods/GoodsList.vue'
+	import BackTop from '../../components/content/backTop/BackTop.vue'
 	
 	import {getHomeMultidata,
 			getHomeGoods} from '../../network/home.js'
-	
+		
 	export default {
 		name:"Home",
 		components: {
@@ -33,6 +35,7 @@
 			FeatureView,
 			TabControl,
 			GoodsList,
+			BackTop,
 		},
 		
 		data() {
@@ -45,7 +48,8 @@
 				  'new': {page: 0, list: []},
 				  'sell': {page: 0, list: []},
 				},
-				currentIndex: 0
+				currentIndex: 0,
+				isShowBackTop: false,
 			}
 		},
 		
@@ -60,7 +64,6 @@
 				}else{
 					return this.goods['pop'].list
 				}
-				
 			}
 		},
 		
@@ -73,12 +76,20 @@
 		},
 		
 		methods:{
-			
 			/**
 			 * 事件监听相关的方法
 			 */
 			tabclick(index) {
 				this.currentIndex = index
+			},
+			
+			backClick() {
+				console.log('置顶');
+				this.$refs.scroll.scrollTo(0, 0)
+			},
+			
+			contentScroll(position) {
+				this.isShowBackTop = position.y < -1000;
 			},
 			
 			/**
@@ -97,7 +108,7 @@
 					this.goods[type].list.push(...res.data.list);
 					this.goods[type].page = page;
 				})
-			}
+			}  
 		}
 	}
 </script>
@@ -119,13 +130,17 @@
 		z-index: 9;
 	}
 	
-	.content {
+	.wrapper {
 		overflow: hidden;
 		position: absolute;
 		top: 44px;
 		bottom: 49px;
 		left: 0;
 		right: 0;
+		/* margin-top: 50px;
+		height: 350px;
+		overflow: hidden;
+		width: 100%; */
 	}
 	
 	.tabControl {
@@ -133,4 +148,5 @@
 		top: 44px;
 		z-index: 9;
 	}
+	
 </style>

@@ -11,10 +11,17 @@
 	
 	export default {
 		name: 'Scroll',
-
+		
+		props: {
+			probeType: {
+				type: Number,
+				default: 0,
+			}
+		},
+		
 		data(){
 			return {
-				
+				scroll: null
 			}
 		},
 
@@ -22,7 +29,7 @@
 			this.initBscroll();
 			
 			this.scroll.on('scroll',(position) => {
-				console.log(position);
+				this.$emit('scroll', position)
 			});
 			
 			this.scroll.on('pullingUp', () => {
@@ -34,10 +41,19 @@
 			
 			initBscroll() {
 				this.scroll = new BScroll(this.$refs.wrapper, {
-					probeType: 3,
+					probeType: this.probeType,
 					pullUpLoad: true,
+					click: true,
 				}) 	
 			},
+			
+			refresh() {
+				this.scroll.refresh()
+			},
+			
+			scrollTo(x, y, time=300) {
+				this.scroll.scrollTo(x, y, time)
+			}
 		}
 	}
 </script>

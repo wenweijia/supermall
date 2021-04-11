@@ -1,58 +1,10 @@
 <template>
 	<div class="wrapper" ref='wrapper'>
-		<ul class="">
-			<button @click="buttonClick">按钮</button>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-			<li>请求数据1</li>
-		</ul>
+		<div class="content">
+			<div class="h500"></div>
+			<div class="h300"></div>
+			<div class="h400"></div>
+		</div>
 	</div>
 </template>
 
@@ -100,8 +52,30 @@
 	.wrapper {
 		margin-top: 100px;
 		height: 150px;
-		background-color: red;
 		overflow: hidden;
+		width: 100%;
 /* 		overflow-y: auto;
  */	}
+ 
+	.h300 {
+		height: 100px;
+		width: 100%;
+		background-color: red;
+	}
+	
+	.h400 {
+		height: 100px;
+		width: 100%;
+		background-color: #004444;
+	}
+	
+	.h500 {
+		height: 100px;
+		width: 100%;
+		background-color: #000088;
+	}
+	
+	/* .content {
+		height: 1200px;
+	} */
 </style>
