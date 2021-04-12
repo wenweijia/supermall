@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper" ref='wrapper'>
+	<div class="wrapper1" ref='wrapper2'>
 		<div class="content">
 			<div class="h500"></div>
 			<div class="h300"></div>
@@ -35,7 +35,7 @@
 		methods: {
 			
 			initBscroll() {
-				this.scroll = new BScroll(this.$refs.wrapper, {
+				this.scroll = new BScroll(this.$refs.wrapper2, {
 					probeType: 3,
 					pullUpLoad: true,
 				}) 	
@@ -49,7 +49,7 @@
 </script>
 
 <style>
-	.wrapper {
+	.wrapper1 {
 		margin-top: 100px;
 		height: 150px;
 		overflow: hidden;
