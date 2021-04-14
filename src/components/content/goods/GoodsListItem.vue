@@ -1,6 +1,6 @@
 <template>
 	<div class="goods-item" @click="itemClick">
-		<img :src="goodsItem.show.img" alt="" @load="loadFinish">
+		<img :src="showImage" alt="" @load="loadFinish">
 		<div class="goods-info">
 		  <p>{{goodsItem.title}}</p>
 		  <span class="price">{{goodsItem.price}}</span>
@@ -17,6 +17,12 @@
 			goodsItem: Object
 		},
 		
+		computed: {
+			showImage() {
+				return this.goodsItem.image || this.goodsItem.show.img
+			}
+		},
+		
 		data(){
 			return {
 				
@@ -25,7 +31,11 @@
 
 		methods:{
 			loadFinish() {
-				this.$bus.$emit('itemImageLoad')
+				if (this.$route.path.indexOf('home') !== -1) {
+					this.$bus.$emit('itemImageLoad')
+				}else if (this.$route.path.indexOf('/detail') !== -1) {
+					this.$bus.$emit('detailImageLoad')
+				} 
 			},
 			
 			itemClick() {
