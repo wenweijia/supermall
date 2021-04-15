@@ -9,7 +9,8 @@
 			<detail-comment-info ref="commentInfo" :comment="commentInfo"></detail-comment-info>
 			<GoodsList ref="recommendInfo" :goods="recommends"></GoodsList>
 		</Scroll>
-		
+		<detail-bottom-bar></detail-bottom-bar>
+		<BackTop @click.native='backClick' v-show="isShowBackTop"></BackTop>
 	</div>
 	
 </template>
@@ -24,9 +25,11 @@
 	import DetailImageInfo from './childComps/DetaiImageInfo.vue'
 	import DetailCommentInfo from './childComps/DetailCommentInfo.vue'
 	import GoodsList from '../../components/content/goods/GoodsList.vue'
+	import DetailBottomBar from './childComps/DetailBottomBar.vue'
 	
 	import {getDetail, getDetailRecommend, GoodsInfo, Shop} from '../../network/detail.js'
 	import {debounce} from '../../common/util.js'
+	import {backTopMinxin} from '../../common/mixin.js'
 	
 	export default {
 		name: 'Detail',
@@ -40,6 +43,7 @@
 			DetailImageInfo,
 			DetailCommentInfo,
 			GoodsList,
+			DetailBottomBar,
 		},
 
 		data(){
@@ -73,7 +77,9 @@
 			this.$bus.$on('detailImageLoad', () => {
 				refresh()
 			})
-		},	
+		},
+			
+		mixins: [backTopMinxin],
 
 		methods:{
 			
@@ -117,6 +123,7 @@
 				this.themeTopYs.push(this.$refs.imageInfoRef.$el.offsetTop)
 				this.themeTopYs.push(this.$refs.commentInfo.$el.offsetTop)
 				this.themeTopYs.push(this.$refs.recommendInfo.$el.offsetTop)
+				this.themeTopYs.push(Number.MAX_VALUE)
 				console.log(this.themeTopYs);
 			},
 			
@@ -126,6 +133,7 @@
 			},
 			
 			contentScroll(position) {
+				this.isShowBackTop = -position.y > 1000;
 				for (let i = 0; i < this.themeTopYs.length - 1; ++i) {
 				  if (
 				    this.detailIndex != i &&
@@ -156,7 +164,7 @@
 	}
 	
 	.detail-scroll {
-		height: calc(100vh - 44px);
+		height: calc(100vh - 44px - 49px);
 	}
 	
 </style>
